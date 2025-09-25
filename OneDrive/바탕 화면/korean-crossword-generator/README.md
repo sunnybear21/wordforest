@@ -1,24 +1,33 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
-</div>
-
 # 단어의 숲 - 한글 크로스워드 퍼즐 생성기
 
 <div align="center">
 <img width="600" alt="단어의숲" src="./단어의숲.JPG" />
 </div>
 
-This contains everything you need to run your app locally.
+한글 기반의 크로스워드 퍼즐을 자동으로 생성하는 웹 애플리케이션입니다.
 
-View your app in AI Studio: https://ai.studio/apps/drive/1ygY7oGQdFaBfkueiP0DUKzVmu47L1jTG
+## 실행 방법
 
-## Run Locally
+### 필수 요구사항
+- Node.js
 
-**Prerequisites:**  Node.js
+### 설치 및 실행
 
+1. 의존성 설치:
+   ```bash
+   npm install
+   ```
 
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+2. 앱 실행:
+   ```bash
+   npm run dev
+   ```
+
+3. 브라우저에서 `http://localhost:3000` 접속
+
+## 주요 기능
+
+- 한글 단어 기반 크로스워드 퍼즐 자동 생성
+- 다양한 난이도 레벨 지원
+- 힌트 시스템
+- 인터랙티브한 게임 플레이
