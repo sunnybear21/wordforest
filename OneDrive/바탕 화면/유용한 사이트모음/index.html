@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SunnyBear Linkhub — 유용한 사이트 모음</title>
+  <meta name="description" content="무료·유용 도구와 서비스 링크 모음. 개발, AI, 이미지, PDF, 배포, 앱 제작 등 한 곳에." />
+  <meta name="theme-color" content="#f6efe7" />
+  <style>
+    :root {
+      --bg: #f8f9fa;
+      --card: #fff;
+      --ink: #212529;
+      --muted: #6c757d;
+      --brand: #5865F2;
+      --success: #10b981;
+      --warning: #f59e0b;
+      --info: #3b82f6;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans KR", sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      line-height: 1.6;
+    }
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+    }
+    .wrap { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+    .top {
+      display: flex;
+      gap: 20px;
+      align-items: center;
+      justify-content: space-between;
+      padding: 15px 0;
+    }
+    .brand {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      font-weight: 700;
+      font-size: 1.2rem;
+    }
+    .brand .dot {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--brand), #7289da);
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+    }
+    .searchbar {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      width: 100%;
+      max-width: 500px;
+    }
+    .searchbar input {
+      flex: 1;
+      padding: 12px 16px;
+      border: 2px solid #e9ecef;
+      border-radius: 12px;
+      font-size: 15px;
+      transition: all 0.3s;
+    }
+    .searchbar input:focus {
+      outline: none;
+      border-color: var(--brand);
+      box-shadow: 0 0 0 3px rgba(88, 101, 242, 0.1);
+    }
+    .tagbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      padding: 12px 0;
+      border-top: 1px solid #e9ecef;
+      overflow-x: auto;
+    }
+    .tag {
+      padding: 8px 16px;
+      border-radius: 20px;
+      background: #f1f3f5;
+      color: #495057;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+    .tag:hover {
+      background: #e9ecef;
+      transform: translateY(-1px);
+    }
+    .tag.active {
+      background: var(--brand);
+      color: #fff;
+      box-shadow: 0 2px 8px rgba(88, 101, 242, 0.3);
+    }
+    .main-container {
+      display: flex;
+      gap: 30px;
+      padding: 30px 0;
+    }
+    .content-area { flex: 1; }
+    .sidebar {
+      width: 300px;
+      position: sticky;
+      top: 100px;
+      height: fit-content;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 20px;
+    }
+    .card {
+      background: var(--card);
+      border: 1px solid rgba(0, 0, 0, 0.08);
+      border-radius: 16px;
+      padding: 20px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      transition: all 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--brand), #7289da);
+      transform: scaleX(0);
+      transition: transform 0.3s;
+    }
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+    }
+    .card:hover::before { transform: scaleX(1); }
+    .card h3 {
+      margin: 0;
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--ink);
+    }
+    .card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.5;
+    }
+    .meta {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 8px;
+    }
+    .badge {
+      font-size: 11px;
+      padding: 4px 10px;
+      border-radius: 12px;
+      font-weight: 500;
+      background: #e3f2fd;
+      color: #1976d2;
+    }
+    .badge.free { background: #e8f5e9; color: #2e7d32; }
+    .badge.freemium { background: #fff3e0; color: #f57c00; }
+    .badge.paid { background: #fce4ec; color: #c2185b; }
+    .go {
+      margin-top: auto;
+      display: flex;
+      gap: 10px;
+    }
+    .btn {
+      flex: 1;
+      text-align: center;
+      text-decoration: none;
+      padding: 10px 16px;
+      border-radius: 10px;
+      border: 2px solid transparent;
+      font-weight: 600;
+      font-size: 14px;
+      transition: all 0.2s;
+      cursor: pointer;
+    }
+    .btn.primary {
+      background: var(--brand);
+      color: #fff;
+    }
+    .btn.primary:hover {
+      background: #4752c4;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(88, 101, 242, 0.3);
+    }
+    /* 쿠팡 파트너스 스타일 */
+    .coupang-banner {
+      margin-bottom: 30px;
+      text-align: center;
+      background: white;
+      padding: 15px;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    }
+    .coupang-banner img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 8px;
+    }
+    .product-recommend {
+      margin-bottom: 40px;
+      padding: 20px;
+      background: white;
+      border-radius: 16px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    }
+    .product-recommend h2 {
+      margin: 0 0 20px;
+      font-size: 20px;
+      color: #212529;
+    }
+    .coupang-products {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 15px;
+    }
+    .product-card {
+      border: 1px solid #e9ecef;
+      border-radius: 8px;
+      overflow: hidden;
+      transition: all 0.3s;
+      background: white;
+    }
+    .product-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    }
+    .product-card a {
+      text-decoration: none;
+      color: inherit;
+    }
+    .product-card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+    .product-info {
+      padding: 12px;
+    }
+    .product-name {
+      margin: 0 0 8px;
+      font-size: 14px;
+      font-weight: 500;
+      color: #212529;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    .product-price {
+      margin: 0 0 8px;
+      font-size: 18px;
+      font-weight: 700;
+      color: #e8380d;
+    }
+    .rocket {
+      display: inline-block;
+      padding: 4px 8px;
+      background: #f0f0f0;
+      border-radius: 4px;
+      font-size: 12px;
+      color: #111;
+    }
+    .coupang-sidebar {
+      background: white;
+      padding: 15px;
+      border-radius: 12px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    }
+    .coupang-sidebar h3 {
+      margin: 0 0 12px;
+      font-size: 16px;
+      color: #212529;
+    }
+    .coupang-sidebar img {
+      width: 100%;
+      height: auto;
+      border-radius: 8px;
+    }
+    .category-products {
+      background: white;
+      padding: 15px;
+      border-radius: 12px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    }
+    .category-products h3 {
+      margin: 0 0 15px;
+      font-size: 16px;
+      color: #212529;
+    }
+    .mini-product {
+      margin-bottom: 12px;
+      border: 1px solid #e9ecef;
+      border-radius: 8px;
+      overflow: hidden;
+      transition: all 0.2s;
+    }
+    .mini-product:hover {
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    .mini-product a {
+      display: flex;
+      gap: 12px;
+      padding: 10px;
+      text-decoration: none;
+      color: inherit;
+    }
+    .mini-product img {
+      width: 60px;
+      height: 60px;
+      object-fit: cover;
+      border-radius: 4px;
+    }
+    .mini-info {
+      flex: 1;
+    }
+    .mini-info p {
+      margin: 0 0 4px;
+      font-size: 13px;
+      color: #495057;
+    }
+    .mini-price {
+      font-weight: 700;
+      color: #e8380d;
+    }
+    .coupang-widget {
+      background: white;
+      padding: 15px;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    }
+    .coupang-notice {
+      background: #fff9e6;
+      padding: 12px;
+      border-radius: 8px;
+      margin: 20px 0;
+      border-left: 4px solid #ffc107;
+      font-size: 12px;
+      color: #856404;
+      line-height: 1.6;
+    }
+    footer {
+      padding: 40px 0;
+      background: linear-gradient(to bottom, #f8f9fa, #e9ecef);
+      border-top: 1px solid #dee2e6;
+      margin-top: 60px;
+    }
+    footer .wrap { padding: 0 20px; }
+    footer a { color: var(--brand); text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+    .footer-content {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      margin-bottom: 20px;
+    }
+    .disclosure {
+      font-size: 12px;
+      color: #6c757d;
+      line-height: 1.6;
+    }
+    .hide { display: none !important; }
+    @media (max-width: 968px) {
+      .main-container { flex-direction: column; }
+      .sidebar { width: 100%; position: static; }
+      .footer-content { grid-template-columns: 1fr; }
+    }
+    .coupang-mid-ad {
+      grid-column: 1 / -1;
+      margin: 20px 0;
+    }
+    @media (max-width: 640px) {
+      .grid { grid-template-columns: 1fr; }
+      .brand span { display: none; }
+      .coupang-products { grid-template-columns: repeat(2, 1fr); }
+    }
+  </style>
+  <!-- 애드센스: 도메인 승인 후 주석 해제 -->
+  <!-- <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2127518470712424" crossorigin="anonymous"></script> -->
+</head>
+<body>
+  <header>
+    <div class="wrap top">
+      <div class="brand"><span class="dot"></span> SunnyBear Linkhub <span style="color:#7a6">— 유용한 사이트 모음</span></div>
+      <div class="searchbar">
+        <input id="q" placeholder="예: 이미지 배경 제거, PDF 합치기, 서버 배포, 앱 제작…" />
+      </div>
+    </div>
+    <div class="wrap tagbar" id="tagbar"></div>
+  </header>
+  
+  <main class="wrap">
+    <div class="main-container">
+      <div class="content-area">
+        <!-- 쿠팡 파트너스 배너 광고 -->
+        <section class="coupang-banner">
+          <a href="https://link.coupang.com/a/bRXXXX" target="_blank" rel="noopener">
+            <img src="https://ads-partners.coupang.com/banners/XXXXXX?subId=&traceId=V0-301-879dd1202e5c73b2-I" alt="쿠팡 배너">
+          </a>
+        </section>
+
+        <!-- 추천 상품 섹션 -->
+        <section class="product-recommend">
+          <h2>💝 오늘의 추천 상품</h2>
+          <div class="coupang-products">
+            <div class="product-card">
+              <a href="https://link.coupang.com/a/bRXXX1" target="_blank">
+                <img src="https://thumbnail7.coupangcdn.com/thumbnails/remote/230x230ex/image/retail/images/XXX.jpg" alt="노트북">
+                <div class="product-info">
+                  <p class="product-name">LG 그램 노트북</p>
+                  <p class="product-price">1,299,000원</p>
+                  <span class="rocket">🚀 로켓배송</span>
+                </div>
+              </a>
+            </div>
+            <div class="product-card">
+              <a href="https://link.coupang.com/a/bRXXX2" target="_blank">
+                <img src="https://thumbnail6.coupangcdn.com/thumbnails/remote/230x230ex/image/retail/images/XXX.jpg" alt="마우스">
+                <div class="product-info">
+                  <p class="product-name">로지텍 MX Master 3S</p>
+                  <p class="product-price">139,000원</p>
+                  <span class="rocket">🚀 로켓배송</span>
+                </div>
+              </a>
+            </div>
+            <div class="product-card">
+              <a href="https://link.coupang.com/a/bRXXX3" target="_blank">
+                <img src="https://thumbnail8.coupangcdn.com/thumbnails/remote/230x230ex/image/retail/images/XXX.jpg" alt="키보드">
+                <div class="product-info">
+                  <p class="product-name">키크론 K2 무선 키보드</p>
+                  <p class="product-price">89,000원</p>
+                  <span class="rocket">🚀 로켓배송</span>
+                </div>
+              </a>
+            </div>
+            <div class="product-card">
+              <a href="https://link.coupang.com/a/bRXXX4" target="_blank">
+                <img src="https://thumbnail9.coupangcdn.com/thumbnails/remote/230x230ex/image/retail/images/XXX.jpg" alt="모니터">
+                <div class="product-info">
+                  <p class="product-name">삼성 27인치 모니터</p>
+                  <p class="product-price">229,000원</p>
+                  <span class="rocket">🚀 로켓배송</span>
+                </div>
+              </a>
+            </div>
+          </div>
+        </section>
+
+        <section class="grid" id="cards"></section>
+      </div>
+      <aside class="sidebar">
+        <!-- 쿠팡 파트너스 사이드바 광고 -->
+        <div class="coupang-sidebar">
+          <h3>🛒 쿠팡 특가</h3>
+          <a href="https://link.coupang.com/a/bRXXX5" target="_blank">
+            <img src="https://ads-partners.coupang.com/banners/XXXXX1?subId=&traceId=V0-301-XXX" alt="쿠팡 특가">
+          </a>
+        </div>
+
+        <!-- 카테고리별 추천 상품 -->
+        <div class="category-products">
+          <h3>💻 개발자 필수템</h3>
+          <div class="mini-product">
+            <a href="https://link.coupang.com/a/bRXXX6" target="_blank">
+              <img src="https://thumbnail.coupangcdn.com/thumbnails/remote/120x120ex/image/XXX.jpg" alt="상품">
+              <div class="mini-info">
+                <p>맥북 프로 14</p>
+                <p class="mini-price">2,390,000원</p>
+              </div>
+            </a>
+          </div>
+          <div class="mini-product">
+            <a href="https://link.coupang.com/a/bRXXX7" target="_blank">
+              <img src="https://thumbnail.coupangcdn.com/thumbnails/remote/120x120ex/image/XXX.jpg" alt="상품">
+              <div class="mini-info">
+                <p>에어팟 프로</p>
+                <p class="mini-price">329,000원</p>
+              </div>
+            </a>
+          </div>
+        </div>
+
+        <!-- 쿠팡 파트너스 위젯 -->
+        <div class="coupang-widget">
+          <script src="https://ads-partners.coupang.com/g.js"></script>
+          <script>
+            new PartnersCoupang.G({"id":XXXXX,"template":"carousel","trackingCode":"AF0000000","width":"300","height":"300"});
+          </script>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <!-- 쿠팡 파트너스 고지 -->
+      <div class="coupang-notice">
+        <strong>쿠팡 파트너스 활동 안내</strong><br>
+        이 포스트는 쿠팡 파트너스 활동의 일환으로, 이에 따른 일정액의 수수료를 제공받습니다.<br>
+        상품 가격과 할인율은 변경될 수 있으며, 구매 전 쿠팡에서 최종 가격을 확인하세요.
+      </div>
+
+      <div class="footer-content">
+        <div>
+          <strong>SunnyBear Linkhub</strong>
+          <p>무료·유용 툴 링크들을 한 곳에 모았습니다.</p>
+          <p>문의: <a href="mailto:rsy0314@gmail.com">rsy0314@gmail.com</a> · <a href="https://wonusdwant.tistory.com" target="_blank" rel="noopener">wonusdwant.tistory.com</a></p>
+        </div>
+        <div>
+          <p class="disclosure"><strong>제휴 고지</strong>: 일부 링크는 쿠팡 파트너스 등 <em>제휴 링크</em>일 수 있으며, 이를 통해 구매 시 일정액의 수수료를 받을 수 있습니다. 이용자 추가비용은 없습니다.</p>
+          <p class="disclosure">외부 링크는 새 창으로 열리며 <code>rel="noopener nofollow sponsored"</code>를 적용합니다.</p>
+        </div>
+      </div>
+      <p class="disclosure">© <span id="y"></span> SunnyBear. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    const ITEMS = [
+      // 이미지/편집
+      { id:"removebg", title:"Remove.bg", url:"https://remove.bg/", desc:"AI 기반으로 사진 배경을 자동 제거.", tags:["이미지","배경제거"], badge:"부분 무료" },
+      { id:"fococlipping", title:"FocoClipping", url:"https://www.fococlipping.com/", desc:"인물/제품 사진 배경 제거 및 간단 편집.", tags:["이미지","배경제거"], badge:"부분 무료" },
+      { id:"slazzer", title:"Slazzer", url:"https://www.slazzer.com/", desc:"AI 배경 제거 + 블러/컬러 배경 대체 기능 제공.", tags:["이미지","배경제거"], badge:"부분 무료" },
+      { id:"cleanup", title:"Cleanup.pictures", url:"https://cleanup.pictures/", desc:"사진 속 불필요한 물체나 인물 지우기.", tags:["이미지","편집"], badge:"무료" },
+      { id:"canva", title:"Canva", url:"https://www.canva.com/", desc:"온라인 디자인 툴. 썸네일, 포스터, 프레젠테이션 제작.", tags:["이미지","디자인"], badge:"부분 무료" },
+      { id:"tinypng", title:"TinyPNG", url:"https://tinypng.com/", desc:"PNG/JPG 이미지 압축 사이트.", tags:["이미지","압축"], badge:"무료" },
+      { id:"unsplash", title:"Unsplash", url:"https://unsplash.com/", desc:"고퀄리티 무료 이미지 소스, 상업적 사용 가능.", tags:["이미지","소스"], badge:"무료" },
+      { id:"pixabay", title:"Pixabay", url:"https://pixabay.com/", desc:"이미지·영상·음악까지 무료 리소스 제공.", tags:["이미지","소스"], badge:"무료" },
+      { id:"pexels", title:"Pexels", url:"https://www.pexels.com/", desc:"사진·동영상 무료 제공.", tags:["이미지","소스"], badge:"무료" },
+      { id:"photopea", title:"Photopea", url:"https://www.photopea.com/", desc:"웹 기반 포토샵 클론, PSD 파일 편집 가능.", tags:["이미지","편집"], badge:"무료" },
+      { id:"pixlr", title:"Pixlr", url:"https://pixlr.com/", desc:"브라우저 기반 간단 이미지 편집기.", tags:["이미지","편집"], badge:"부분 무료" },
+
+      // PDF/문서
+      { id:"ilovepdf", title:"ILovePDF", url:"https://www.ilovepdf.com/", desc:"PDF 합치기/분할/압축 등 종합 툴.", tags:["PDF","문서"], badge:"무료" },
+      { id:"smallpdf", title:"Smallpdf", url:"https://smallpdf.com/", desc:"PDF 변환/서명/보안 등 종합 서비스.", tags:["PDF","문서"], badge:"무료" },
+
+      // 개발/운영
+      { id:"uptime", title:"UptimeRobot", url:"https://uptimerobot.com/", desc:"서버/웹사이트 상태 모니터링 서비스.", tags:["개발","운영"], badge:"무료 플랜" },
+      { id:"vercel", title:"Vercel", url:"https://vercel.com/", desc:"Next.js 친화적 서버리스 배포 플랫폼.", tags:["개발","배포"], badge:"프리티어" },
+      { id:"render", title:"Render", url:"https://render.com/", desc:"풀스택 클라우드 애플리케이션 배포 플랫폼.", tags:["개발","배포"], badge:"프리티어" },
+      { id:"netlify", title:"Netlify", url:"https://www.netlify.com/", desc:"정적 사이트/프론트엔드 배포 플랫폼.", tags:["개발","배포"], badge:"무료" },
+      { id:"gh-pages", title:"GitHub Pages", url:"https://pages.github.com/", desc:"GitHub 리포지토리로 무료 정적 사이트 호스팅.", tags:["개발","배포"], badge:"무료" },
+
+      // 앱 제작/개발 툴
+      { id:"mit-app", title:"MIT App Inventor", url:"https://appinventor.mit.edu/", desc:"블록 코딩 기반 안드로이드 앱 제작 툴.", tags:["앱","개발"], badge:"무료" },
+      { id:"android-studio", title:"Android Studio", url:"https://developer.android.com/studio", desc:"구글 공식 안드로이드 앱 개발 IDE.", tags:["앱","개발"], badge:"무료" },
+      { id:"xcode", title:"Xcode", url:"https://developer.apple.com/xcode/", desc:"iOS/macOS 앱 개발 공식 IDE.", tags:["앱","개발"], badge:"무료" },
+      { id:"thunkable", title:"Thunkable", url:"https://thunkable.com/", desc:"노코드 앱 제작 플랫폼.", tags:["앱","노코드"], badge:"부분 무료" },
+
+      // AI & 생산성
+      { id:"chatgpt", title:"ChatGPT", url:"https://chat.openai.com/", desc:"OpenAI의 대화형 AI. 글쓰기, 코딩, 번역, 분석 등 다양한 작업 지원.", tags:["AI","생산성"], badge:"부분 무료" },
+      { id:"claude", title:"Claude", url:"https://claude.ai/", desc:"Anthropic의 AI. 긴 문서 작업, 코딩, 분석에 강점. 안전하고 유용한 대화.", tags:["AI","생산성"], badge:"부분 무료" },
+      { id:"gemini", title:"Gemini", url:"https://gemini.google.com/", desc:"구글의 최신 AI. 검색 연동, 이미지 인식, 문서 작성 지원.", tags:["AI","생산성"], badge:"부분 무료" },
+      { id:"perplexity", title:"Perplexity AI", url:"https://www.perplexity.ai/", desc:"AI 기반 검색 엔진. 실시간 정보와 출처 제공.", tags:["AI","검색"], badge:"부분 무료" },
+      { id:"copilot", title:"Microsoft Copilot", url:"https://copilot.microsoft.com/", desc:"마이크로소프트 AI 어시스턴트. Office 연동, 이미지 생성.", tags:["AI","생산성"], badge:"무료" },
+      { id:"suno", title:"Suno", url:"https://suno.ai/", desc:"AI 기반 음악 생성 플랫폼.", tags:["AI","음악"], badge:"부분 무료" },
+      { id:"midjourney", title:"Midjourney", url:"https://www.midjourney.com/", desc:"AI 기반 이미지 생성 툴. 고품질 아트워크 생성.", tags:["AI","이미지"], badge:"유료" },
+      { id:"dalle", title:"DALL-E", url:"https://openai.com/dall-e", desc:"OpenAI의 이미지 생성 AI. ChatGPT Plus에 포함.", tags:["AI","이미지"], badge:"유료" },
+      { id:"stable-diffusion", title:"Stable Diffusion", url:"https://stablediffusionweb.com/", desc:"오픈소스 이미지 생성 AI. 무료 온라인 버전.", tags:["AI","이미지"], badge:"무료" },
+
+      // 공유/업무
+      { id:"snapdrop", title:"Snapdrop", url:"https://snapdrop.net/", desc:"브라우저 기반 P2P 파일 전송.", tags:["공유","파일"], badge:"무료" },
+      { id:"wetransfer", title:"WeTransfer", url:"https://wetransfer.com/", desc:"간단한 대용량 파일 공유. 회원가입 없이 사용.", tags:["공유","파일"], badge:"무료 2GB" },
+      { id:"imgur", title:"Imgur", url:"https://imgur.com/", desc:"이미지 업로드·공유 플랫폼.", tags:["이미지","공유"], badge:"무료" },
+
+      // 추가 유용한 도구
+      { id:"notion", title:"Notion", url:"https://www.notion.so/", desc:"올인원 워크스페이스. 노트, 데이터베이스, 칸반보드.", tags:["생산성","협업"], badge:"부분 무료" },
+      { id:"figma", title:"Figma", url:"https://www.figma.com/", desc:"웹 기반 UI/UX 디자인 툴. 실시간 협업.", tags:["디자인","협업"], badge:"부분 무료" },
+      { id:"deepl", title:"DeepL", url:"https://www.deepl.com/", desc:"AI 기반 고품질 번역 서비스.", tags:["번역","생산성"], badge:"부분 무료" },
+      { id:"grammarly", title:"Grammarly", url:"https://www.grammarly.com/", desc:"영어 문법·맞춤법 검사 도구.", tags:["글쓰기","생산성"], badge:"부분 무료" }
+    ];
+
+    const TAGS = (()=>{
+      const s=new Set(); ITEMS.forEach(i=> i.tags.forEach(t=>s.add(t))); return ["전체",...Array.from(s)];
+    })();
+
+    const $ = (sel,root=document)=>root.querySelector(sel);
+    const cards = $('#cards');
+    const q = $('#q');
+    const tagbar = $('#tagbar');
+
+    let currentTag = '전체';
+
+    function renderTags(){
+      tagbar.innerHTML = TAGS.map(t=>`<button class=\"tag ${t===currentTag?'active':''}\" data-t=\"${t}\">${t}</button>`).join('');
+      tagbar.querySelectorAll('.tag').forEach(btn=>{
+        btn.addEventListener('click',()=>{ currentTag = btn.dataset.t; filterAndRender(); renderTags(); })
+      })
+    }
+
+    function sanitize(s){ return s.replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','\"':'&quot;','\'':'&#39;'}[c])); }
+
+    function cardTemplate(item){
+      const href = item.url;
+      const rel = item.affiliate ? 'noopener nofollow sponsored' : 'noopener nofollow';
+      const tags = item.tags.map(t=>`<span class=\"badge\">${sanitize(t)}</span>`).join(' ');
+      let badgeClass = '';
+      if(item.badge) {
+        if(item.badge.includes('무료')) badgeClass = 'free';
+        else if(item.badge.includes('부분')) badgeClass = 'freemium';
+        else if(item.badge.includes('유료') || item.badge.includes('프리미엄')) badgeClass = 'paid';
+      }
+      const badge = item.badge? `<span class=\"badge ${badgeClass}\">${sanitize(item.badge)}</span>`:'';
+      return `
+        <article class=\"card\" data-id=\"${item.id}\">
+          <h3>${sanitize(item.title)}</h3>
+          <p>${sanitize(item.desc)}</p>
+          <div class=\"meta\">${tags} ${badge}</div>
+          <div class=\"go\">
+            <a class=\"btn primary\" target=\"_blank\" rel=\"${rel}\" href=\"${href}\">바로가기</a>
+          </div>
+        </article>`;
+    }
+
+    function filterAndRender(){
+      const kw = (q.value||'').toLowerCase();
+      const list = ITEMS.filter(i=>{
+        const byTag = (currentTag==='전체') || i.tags.includes(currentTag);
+        const byKw = !kw || [i.title,i.desc,...i.tags].join(' ').toLowerCase().includes(kw);
+        return byTag && byKw;
+      });
+      // 중간 쿠팡 광고 삽입
+      let html = '';
+      list.forEach((item, idx) => {
+        html += cardTemplate(item);
+        // 6번째 카드마다 쿠팡 상품 광고 삽입
+        if ((idx + 1) % 6 === 0 && idx !== list.length - 1) {
+          html += `
+            <div class="coupang-mid-ad">
+              <p style="font-size:14px;color:#999;margin:0 0 10px;">추천 상품</p>
+              <div style="display:flex;gap:10px;padding:15px;background:white;border-radius:12px;border:1px solid #e9ecef;">
+                <a href="https://link.coupang.com/a/bRXXX8" target="_blank" style="flex:1;text-align:center;">
+                  <img src="https://thumbnail.coupangcdn.com/thumbnails/remote/120x120ex/image/XXX.jpg" alt="추천상품" style="width:100px;height:100px;object-fit:cover;border-radius:8px;">
+                  <p style="margin:8px 0 0;font-size:12px;color:#333;">인기 상품</p>
+                </a>
+                <a href="https://link.coupang.com/a/bRXXX9" target="_blank" style="flex:1;text-align:center;">
+                  <img src="https://thumbnail.coupangcdn.com/thumbnails/remote/120x120ex/image/XXX.jpg" alt="추천상품" style="width:100px;height:100px;object-fit:cover;border-radius:8px;">
+                  <p style="margin:8px 0 0;font-size:12px;color:#333;">베스트셀러</p>
+                </a>
+              </div>
+            </div>`;
+        }
+      });
+      cards.innerHTML = html;
+    }
+
+    document.addEventListener('DOMContentLoaded', ()=>{
+      renderTags();
+      filterAndRender();
+      document.getElementById('y').textContent = new Date().getFullYear();
+    });
+  </script>
+</body>
+</html>
